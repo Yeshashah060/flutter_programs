@@ -1,0 +1,205 @@
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MyApp());
+}
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: MyHome(),
+    );
+  }
+  
+} 
+class MyHome extends StatefulWidget {
+  const MyHome({super.key});
+
+  @override
+  State<MyHome> createState() => _MyHomeState();
+}
+
+class _MyHomeState extends State<MyHome> {
+  var oddEvenController=TextEditingController();
+  String status=" ";
+  int num=0;
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("check odd even"),
+        centerTitle: true,
+        backgroundColor: Colors.brown,
+      ),
+      body: Center(
+        child: Column(
+          children: [
+            Container(
+              margin: EdgeInsets.all(20),
+              child: TextField(
+                controller:oddEvenController ,
+                decoration: InputDecoration(
+                  hintText: "enter number",
+                  prefixIcon: Icon(Icons.numbers)
+                ),
+              ),
+            ),
+            Row(
+                children: [
+                  ElevatedButton(onPressed: (){
+                    setState(() {
+                      num=int.parse(oddEvenController.text.toString());
+                      bool flag= CalOddEven(num);
+                      status = flag ? "Even":"odd";
+                    });
+                  }, child: Text("submit")),
+                  Text("entered number $num is: $status"),
+                ],
+            )
+          ],
+
+        ),
+      ),
+    );
+  }
+}
+bool CalOddEven(int num)
+{
+  bool flag= true;
+  if(num%2==0){
+    flag=true;
+  }
+  else
+    {
+      flag=false;
+    }
+  return flag;
+}
+
+-----------------------------------------------------------------------------------------------
+
+
+
+
+
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MyApp());
+}
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: MyHome(),
+    );
+  }
+  
+} 
+class MyHome extends StatefulWidget {
+  const MyHome({super.key});
+
+  @override
+  State<MyHome> createState() => _MyHomeState();
+}
+
+class _MyHomeState extends State<MyHome> {
+  var oddEvenController=TextEditingController();
+  String status=" ";
+  int num=0;
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("check odd even"),
+        centerTitle: true,
+        backgroundColor: Colors.brown,
+      ),
+      body: Center(
+        child: Column(
+          children: [
+            Container(
+              margin: EdgeInsets.all(20),
+              child: TextField(
+                controller:oddEvenController ,
+                decoration: InputDecoration(
+                  hintText: "enter number",
+                  prefixIcon: Icon(Icons.numbers)
+                ),
+              ),
+            ),
+            Column(
+                children: [
+                  ElevatedButton(onPressed: (){
+                    setState(() {
+                      num=int.parse(oddEvenController.text.toString());
+                      bool flag= CalOddEven(num);
+                      status = flag ? "Even":"odd";
+                    });
+                  }, child: Text("submit")),
+                  Text("entered number $num is: $status"),
+                ],
+            )
+          ],
+
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: (){
+          Navigator.push(context, MaterialPageRoute(
+              builder:(context) => Nextpage(num:num,strNumType:status)));
+        },
+
+      ),
+    );
+  }
+}
+bool CalOddEven(int num)
+{
+  bool flag= true;
+  if(num%2==0){
+    flag=true;
+  }
+  else
+    {
+      flag=false;
+    }
+  return flag;
+}
+class Nextpage extends StatelessWidget {
+  int num;
+  String strNumType;
+  Nextpage
+      ({Key? key,required this.num,required this.strNumType}):super(key:key);
+
+  //const Nextpage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("second page"),
+        centerTitle: true,
+        backgroundColor: Colors.teal,
+      ),
+      body: Row(
+        children: [
+          Text("emtered num $num is $strNumType" ),
+          ElevatedButton(onPressed: (){
+            Navigator.pop(context);
+          }, child:  Text("go back"))
+
+        ],
+      ),
+    );
+  }
+}
+
+
+
+
+
