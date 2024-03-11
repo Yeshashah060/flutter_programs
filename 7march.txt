@@ -1,0 +1,105 @@
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MaterialApp(home: MyApp9()));
+}
+
+class MyApp9 extends StatefulWidget {
+  const MyApp9({super.key});
+
+  @override
+  State<MyApp9> createState() => _MyApp9State();
+}
+
+class Car{
+  String strcarName = "";
+  String strcarCompany = "";
+  String strcarColor = "";
+  String strcarPrice = "";
+  
+}
+
+class _MyApp9State extends State<MyApp9> {
+  TextEditingController carName = new TextEditingController();
+  TextEditingController carCompany = new TextEditingController();
+  TextEditingController carColor = new TextEditingController();
+
+  TextEditingController searchCar = new TextEditingController();
+
+  double carPrice = 0.0;
+
+  List<Car> listCar = [];
+
+  String CarNameValue = "";
+  String CarColorValue = "";
+  String CarCompanyValue = "";
+  String CarPriceValue = "";
+
+  String searchText ="";
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(appBar: AppBar(title: Text("MY APP 9"),),
+    body: Column(
+      children: [
+        TextField(controller: carName, decoration: InputDecoration(labelText: "Enter car name", icon: Icon(Icons.car_rental)),),
+        SizedBox(height: 10.0,),
+        TextField(controller: carColor, decoration: InputDecoration(labelText: "Enter car color", icon: Icon(Icons.color_lens)),),
+        SizedBox(height: 10.0,),
+        TextField(controller: carCompany, decoration: InputDecoration(labelText: "Enter car company", icon: Icon(Icons.car_rental)),),
+        SizedBox(height: 10.0,),
+        Slider(value: carPrice,min: 0.0,
+            max: 500000.0, onChanged: (value){
+          carPrice = value;
+
+          setState(() {
+
+              });
+            }),
+        SizedBox(height: 20.0,),
+        ElevatedButton(onPressed: (){
+          setState(() {
+          });
+
+          Car addCar = new Car();
+
+          addCar.strcarName = carName.text;
+          addCar.strcarColor = carColor.text;
+          addCar.strcarCompany = carCompany.text;
+          addCar.strcarPrice = carPrice.toString();
+
+          listCar.add(addCar);
+
+          CarNameValue = "Car name: "+ addCar.strcarName;
+          CarColorValue = "Car Color: "+addCar.strcarColor;
+          CarCompanyValue = "Car Company: "+ addCar.strcarCompany;
+          CarPriceValue = "Car Price: " + addCar.strcarPrice;
+
+        }, child: Icon(Icons.add)),
+        Text(CarNameValue, style: TextStyle(fontSize: 30.0),),
+        SizedBox(height: 10.0,),
+        Text(CarColorValue, style: TextStyle(fontSize: 30.0),),
+        SizedBox(height: 10.0,),
+        Text(CarCompanyValue, style: TextStyle(fontSize: 30.0),),
+        SizedBox(height: 10.0,),
+        Text(CarPriceValue, style: TextStyle(fontSize: 30.0),),
+        SizedBox(height: 10.0,),
+
+        TextField(controller: searchCar,decoration: InputDecoration(labelText: "Enter car name", icon: Icon(Icons.search)),),
+        SizedBox(height: 10.0,),
+        ElevatedButton(onPressed: (){
+          String SearchCar = searchCar.text;
+          setState(() {
+          });
+          listCar.forEach((element) {
+            if (element == SearchCar){
+              searchText = listCar.length.toString();
+            }
+          });
+        }, child: Icon(Icons.search)),
+        SizedBox(height: 10.0,),
+        Text(searchText, style: TextStyle(fontSize: 30.0),),
+      ],
+    ));
+  }
+}
